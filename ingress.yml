@@ -5,15 +5,14 @@ metadata:
  namespace: api
  annotations:
   kubernetes.io/ingress.class: "nginx"
-   #nginx.ingress.kubernetes.io/ssl-redirect: "true"
 spec:
  ingressClassName: nginx
  tls:
  - hosts:
-   - app1.test.com
-   secretName: my-ssl
+   - <your-domain-name>
+   secretName: <your-secret>
  rules:
-  - host: app1.test.com
+  - host: <your-domain-name>
     http:
      paths:
      - path: /app1
@@ -23,7 +22,7 @@ spec:
          name: app1-service
          port:
           number: 80
-  - host: app2.test.com
+  - host: <your-domain-name>
     http:
      paths:
      - path: /app2
