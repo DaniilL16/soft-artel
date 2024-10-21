@@ -1,0 +1,37 @@
+- hosts: master
+  become: true
+  tasks:
+  - name: install python3 and python3-kubernetes
+    apt:
+     name: "{{ packages }}"
+     state: present
+     update_cache: yes
+    vars:
+     packages:
+     - python3
+     - python3-kubernetes
+  - name: Create Namespace for API
+    kubernetes.core.k8s:
+     state: present
+     src: /etc/ansible/roles/k8s-deploy/templates/ns.yml
+  - name: create configmap
+    kubernetes.core.k8s:
+     state: present
+     src: /etc/ansible/roles/k8s-deploy/templates/configmap.yml
+  - name: Deploy app1 and service app1-service
+    kubernetes.core.k8s:
+     state: present
+     src: /etc/ansible/roles/k8s-deploy/templates/app1.yml
+  - name: Deploy app2 and service app2-service
+    kubernetes.core.k8s:
+     state: present
+     src: /etc/ansible/roles/k8s-deploy/templates/app2.yml
+  - name: create ingress
+    kubernetes.core.k8s:
+     state: present
+     src: /etc/ansible/roles/k8s-deploy/templates/ingress.yml
+  - name: add nfs pv,pvc
+    kubernetes.core.k8s:
+     state: present
+     src: /etc/ansible/roles/k8s-deploy/templates/nfs.yml
+

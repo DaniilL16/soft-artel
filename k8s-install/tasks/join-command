@@ -1,0 +1,1 @@
+kubeadm join 192.168.89.213:6443 --token keghuw.j565isnosk2def5i --discovery-token-ca-cert-hash sha256:064d55ac2cd07b0275344066e91740ff5fe2ede3a0cc15a1eca056ad6802173a 
